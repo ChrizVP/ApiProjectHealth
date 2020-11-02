@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/storedb', {
-    useNewUrlPaerser: true,
-    userUnifiedTopology: true,
+mongoose.connect('mongodb://localhost:27017/ProjectHealthDB', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     useCreateIndex: true
+
 }).then(db => console.log('Connection establishe successfully'))
