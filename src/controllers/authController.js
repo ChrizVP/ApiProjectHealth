@@ -2,10 +2,10 @@ const { Router } = require('express')
 const router =  Router();
 
 const User = require('../models/userModel')
-const verifyToken = require('./verifyToken')
+const verifyToken = require('../security/verifyToken')
 
 const jwt = require('jsonwebtoken')
-const config = require('../config')
+const config = require('../security/config')
 
 router.post('/signup', async(req, res) => {
     try{
