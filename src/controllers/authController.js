@@ -7,6 +7,14 @@ const verifyToken = require('../security/verifyToken')
 const jwt = require('jsonwebtoken')
 const config = require('../security/config')
 
+var getToken = null; 
+
+router.get('/userGetToken', async(req, res) => {
+    res.status(200).json({
+        token: getToken
+    });
+});
+
 router.post('/signup', async(req, res) => {
     try{
         const { username, email, password } = req.body;
@@ -14,8 +22,9 @@ router.post('/signup', async(req, res) => {
         user.password = await user.encryptPassword(password);
         await user.save();
         const token = jwt.sign({ id: user.id }, config.secret, {
-            expiresIn: 60 * 60 * 24
+            expiresIn: 5
         });
+        getToken = token;
         res.status(200).json({ auth: true, token });        
     }catch(e){
         console.log(e)
@@ -36,6 +45,7 @@ router.post('/signin', async(req, res) => {
         const token = jwt.sign({ id: user._id }, config.secret, {
             expiresIn: '24h'
         });
+        getToken = token;
         res.status(200).json({ auth: true, token });
     }catch(e){
         console.log(e)
@@ -44,9 +54,13 @@ router.post('/signin', async(req, res) => {
 });
 
 router.get('/logout', function (req, res){
+    getToken = null;
     res.status(200).send({
         auth: false, 
         token: null
     });
 });
+
+
+
 module.exports = router;
