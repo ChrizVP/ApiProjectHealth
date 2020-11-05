@@ -4,6 +4,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
-app.use(require('./controllers/authController'))
+app.use('/api/auth', require('./routes/auth.routes'))
+app.use('/api/person', require('./routes/person.routes'))
 
 module.exports = app;

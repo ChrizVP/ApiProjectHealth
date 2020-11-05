@@ -1,21 +1,15 @@
-const { Router } = require('express')
-const router =  Router();
 
 const User = require('../models/userModel')
-const verifyToken = require('../security/verifyToken')
+const verifyToken = require('../middlewares/verifyToken')
 
 const jwt = require('jsonwebtoken')
-const config = require('../security/config')
+const config = require('../middlewares/config')
 
 var getToken = null; 
 
-router.get('/userGetToken', async(req, res) => {
-    res.status(200).json({
-        token: getToken
-    });
-});
 
-router.post('/signup', async(req, res) => {
+
+export const signup = async(req, res) => {
     try{
         const { username, email, password } = req.body;
         const user = new User({ username, email, password });
@@ -30,9 +24,10 @@ router.post('/signup', async(req, res) => {
         console.log(e)
         res.status(500).send('There was a problem registerin your account');
     }
-});
 
-router.post('/signin', async(req, res) => {
+}
+
+export const signin = async(req, res) => {
     try{
         const user = await User.findOne({ email: req.body.email })
         if(!user){
@@ -51,16 +46,20 @@ router.post('/signin', async(req, res) => {
         console.log(e)
         res.status(500).send('There was a problem signin');
     }
-});
+    
+}
 
-router.get('/logout', function (req, res){
+export const gettoken = async(req, res) =>{
+    res.status(200).json({
+        token: getToken
+    });
+}
+
+export const logout = async(req, res) => {
     getToken = null;
     res.status(200).send({
         auth: false, 
         token: null
     });
-});
+}
 
-
-
-module.exports = router;
