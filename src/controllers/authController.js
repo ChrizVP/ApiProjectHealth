@@ -16,7 +16,7 @@ export const signup = async(req, res) => {
         user.password = await user.encryptPassword(password);
         await user.save();
         const token = jwt.sign({ id: user.id }, config.secret, {
-            expiresIn: 5
+            expiresIn: 600
         });
         getToken = token;
         res.status(200).json({ auth: true, token });        
@@ -38,10 +38,11 @@ export const signin = async(req, res) => {
             return res.status(401).send({ auth: false, token: null});
         }
         const token = jwt.sign({ id: user._id }, config.secret, {
-            expiresIn: '24h'
+            expiresIn: 600
         });
         getToken = token;
-        res.status(200).json({ auth: true, token });
+        //console.log(jwt.decode(token));
+        res.status(200).json({ auth: true, token});
     }catch(e){
         console.log(e)
         res.status(500).send('There was a problem signin');

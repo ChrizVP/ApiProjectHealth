@@ -1,5 +1,27 @@
-POST  http://localhost:3000/api/auth/signup
+POST  http://localhost:3000/api/auth/signin
+Content-Type: application/json
+
 {
-    "email":"summer1@gmail.com",
-    "password":"summer19620"
+    "email":"summer@gmail.com",
+    "password":"summer9620"
+}
+
+### Register User 
+POST  http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+    "username": "summer",
+    "email": "summer@gmail.com",
+    "password":"summer9620"
+}
+
+### Register Person
+POST  http://localhost:3000/api/person/
+Content-Type: application/json
+
+{
+    "name": "xd",
+    "lastName": "ahh",
+    "age": "20"
 }

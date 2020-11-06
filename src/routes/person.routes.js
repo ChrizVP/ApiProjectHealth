@@ -1,16 +1,17 @@
 const Router = require('express');
 const router = Router();
-
 const personController = require('../controllers/personController');
 
-router.post('/', personController.createPerson)
+const jwtVerify = require('../middlewares/verifyToken');
 
-router.get('/', personController.getPersons)
+router.post("/", jwtVerify.verifyToken, personController.createPerson);
 
-router.get('/:personId', personController.getPersonById)
+router.get('/', jwtVerify.verifyToken, personController.getPersons);
 
-router.put('/:personId', personController.updatePersonById)
+router.get('/:personId', jwtVerify.verifyToken, personController.getPersonById);
 
-router.delete('/:personId', personController.deletePersonById)
+router.put('/:personId', jwtVerify.verifyToken, personController.updatePersonById);
+
+router.delete('/:personId', jwtVerify.verifyToken, personController.deletePersonById);
 
 module.exports = router;
