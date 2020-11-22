@@ -2,8 +2,8 @@ POST  http://localhost:3000/api/auth/signin
 Content-Type: application/json
 
 {
-    "email":"summer@gmail.com",
-    "password":"summer9620"
+    "email":"admin",
+    "password":"admin"
 }
 
 ### Register User 
@@ -19,9 +19,50 @@ Content-Type: application/json
 ### Register Person
 POST  http://localhost:3000/api/person/
 Content-Type: application/json
+x.access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTRjYWM1YjEwNjk0MWFhMDlhYjA3YSIsImlhdCI6MTYwNTkwOTYyNiwiZXhwIjoxNjA1OTEwMjI2fQ.w4h-XuPPLU3UfvOOkBK9Qp3jYmVBDkoS-xGtwl6bkck
 
 {
-    "name": "xd",
-    "lastName": "ahh",
-    "age": "20"
+    "name": "christian",
+    "lastName": "Villena Perez",
+    "age": "25"
+}
+
+### Get Person
+
+GET http://localhost:3000/api/person/
+Content-Type: application/json
+x.access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYjk3MTkzOGIzMjVmMmVhODA3ZmRkMCIsImlhdCI6MTYwNTk5NjEyOCwiZXhwIjoxNjA1OTk2NzI4fQ.BDlJ3qWF9n6I8UK7AXGEBl7VubYfuXRehn3IBOSpD0M
+
+### Get User
+
+GET http://localhost:3000/api/auth/getUser
+Content-Type: application/json
+x.access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYjk3MTkzOGIzMjVmMmVhODA3ZmRkMCIsImlhdCI6MTYwNTk5NjEyOCwiZXhwIjoxNjA1OTk2NzI4fQ.BDlJ3qWF9n6I8UK7AXGEBl7VubYfuXRehn3IBOSpD0M
+
+
+### Update person
+PUT http://localhost:3000/api/person/5fa4cac5b106941aa09ab07a HTTP/1.1
+Content-Type: application/json
+x.access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTRjYWM1YjEwNjk0MWFhMDlhYjA3YSIsImlhdCI6MTYwNTkwOTAwOCwiZXhwIjoxNjA1OTA5NjA4fQ.zBOs8pXFgcMH97CQ7OHU-0hR1sPmACm2uRDUwUnUYMo
+
+{
+    "name": "Christian Raul",
+    "lastName": "Villena Perez",
+    "age": "24"
+}
+
+### Delete person
+DELETE  http://localhost:3000/api/person/5fa6219205a36f21387b7ccf HTTP/1.1
+Content-Type: application/json
+x.access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTYyMTVmMDVhMzZmMjEzODdiN2NjZSIsImlhdCI6MTYwNDcyMzAzOSwiZXhwIjoxNjA0NzIzNjM5fQ.qg_fP_G1AGb80rVdPiFx5O87nXbzJlgBKxkuPrDPkv4
+
+
+### register heartRate
+POST http://localhost:3000/api/measurement/heartRate/ HTTP/1.1
+Content-Type: application/json
+x.access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWViMTAwNGEyMmMzMTcwY2EwMTg5NiIsImlhdCI6MTYwNTMwMzM3OSwiZXhwIjoxNjA1MzAzOTc5fQ.n3nTqouQ5JVahQ1GuK4IxVq5IIp_BOftWktgFfdBiUA
+
+{
+    "value" : "95",
+    "date" : "11-20-2020 16:40"
 }
