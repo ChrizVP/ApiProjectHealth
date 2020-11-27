@@ -9,15 +9,25 @@ export const createPerson = async(req, res) =>{
     try{
         const token = req.headers['x.access-token'];
         const decoded = await jwt.verify(token, config.secret);
-        const {name, lastName, age} = req.body;
-        const person = new Person({ 
-            name, 
-            lastName, 
-            age, 
-            userId : decoded.id 
-        });
-        const savePerson = await person.save();
-        res.status(201).send('Data creacion was successful');
+        const {name, lastName, age, size} = req.body;
+        const person = await Person.findOne().where('userId').equals(decoded.id);
+        if(person == null){
+            const person = new Person({ 
+                name, 
+                lastName, 
+                age, 
+                size,
+                userId : decoded.id 
+            });
+            const savePerson = await person.save();
+            res.status(200).send('Data creacion was successful');
+        }else{
+            
+            const updatePerson = await Person.findByIdAndUpdate(person._id, {name, lastName, age, size});
+            console.log("update");
+            res.status(200).send('Update was successful');
+        }
+        
     }catch(e){
         console.error(e)
         res.status(500).send('There was a problem registerid your data')
@@ -28,10 +38,10 @@ export const getPerson = async(req, res) =>{
     try{
         const token = req.headers['x.access-token'];
         const decoded = await jwt.verify(token, config.secret);
-        const person = await Person.find().where('userId').equals(decoded.id);
-        if(person.length == 1){
+        const person = await Person.findOne().where('userId').equals(decoded.id);
+        if(person != null){
             res.status(200).send(person);
-        }else if(person.length == 0){
+        }else{
             res.status(204).send(' No content');
         }
     }catch(e){
@@ -52,8 +62,8 @@ export const getPersonById = async(req, res) =>{
 export const updatePersonById = async(req, res) =>{
     const { personId } = req.params;
     try{
-        const {name, lastName, age} = req.body;
-        const updatePerson = await Person.findByIdAndUpdate(personId, {name, lastName, age});
+        const {name, lastName, age, size} = req.body;
+        const updatePerson = await Person.findByIdAndUpdate(personId, {name, lastName, age, size});
         res.status(201).send('Data update was successful');
     }catch(e){
         res.status(500).send('There was a problem update your data')
